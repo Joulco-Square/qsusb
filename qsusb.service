@@ -1,0 +1,10 @@
+ [Unit]
+ Description=QSUSB
+ After=multi-user.target
+
+ [Service]
+ Type=idle
+ ExecStart=/opt/qsusb/qsusb_ARM
+
+ [Install]
+ WantedBy=multi-user.target

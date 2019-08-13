@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta
+     name="viewport"
+     content="width=100%, 
+             initial-scale=1,
+             maximum-scale=1,
+             minimum-scale=1, 
+             user-scalable=no"
+    />
+    <meta name="MobileOptimized" content="width" />
+
+    <title>Joulco Square</title>
+    <link href="qsmobile.css" rel="stylesheet" type="text/css" />
+    <script src="qsmo.js" type="text/javascript"></script>    
+    <script src="qsmobile.js" type="text/javascript"></script>
+
+</head>
+
+<body unselectable="on" onload="init()">
+
+    <div id="top_bar" onclick="top_click(event)">
+	<span class="maxwide">
+	<span id="icon" class="qs"></span>
+	<span id="title">Joulco Square</span>
+	<span id="top_but"></span>
+	</span>
+    </div>
+    
+    <div id="main"></div>
+    
+    <div id="home" class="hide">
+	<div class="homecls">   
+	    <div id="hb1" onclick="control_screen()"><span>Control</span></div>
+	    <div id="hb3" onclick="scene_screen()"><span>Scenes</span></div>
+	    <div id="hb4" onclick="settings_screen()"><span>Setup</span></div>
+	</div>
+    </div>
+
+<!--
+    Device Add Screen
+-->
+    <div id="dev_add" class="hide">
+	<div class="dev_form">
+
+	    <div>Device ID: (eg @123450)</div>
+	    <div><input id="dev_id"></div>
+	    
+	    <div>Name:</div>
+	    <div><input id="dev_name"></div>
+	    
+	    <div id="dtype">
+		<div>Type:</div>
+		<select id="dev_type">
+		    <option value="dim">Dimmer</option>
+		    <option value="rel">Relay</option>
+		    <option value="tmp">Temperature</option>
+		    <option value="art">Switch Art Keypad</option>
+		    <option value="hum">Humidity Sensor</option>
+		</select>
+	    </div>
+
+	    <div>Display in Group:</div>
+	    <select id="sel_grp"></select>
+	    <div>Create new Display Group:</div>
+	    <div><input id="new_grp"></div>	    
+	    
+	    <div class="center">
+		<span class="ok_cancel" onclick="dev_add_click(1)">OK</span>
+		<span class="ok_cancel" onclick="dev_add_click(0)">Cancel</span>
+	    </div>
+	    
+	</div>
+    </div>
+  
+  <!--
+    Sched Add/Edit Screen
+-->
+    <div id="sched_screen" class="hide">
+	<div style="text-align: center;">
+
+	    <div class="time"> 
+		<input id="hours" type="number" maxlength="2" min="0" max="23" value="00" onfocus="time_focus(this)" onblur="time_blur(this,23)" onkeypress="numbers(event)"/>:<input id="mins" type="number" maxlength="2"  min="0" max="59" value="00" onfocus="time_focus(this)" onblur="time_blur(this,59)" onkeypress="numbers(event)"/>
+	    </div>
+	    <div id="dow" class="days" onclick="sched_day_click(event)">
+	    <span>Su</span><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span>
+	    </div>
+	    <div id="sched_output">
+		<span class="output" onclick="output_click(this)">OFF</span>
+	    </div>
+   
+	    <div onclick="sched_done_click(event)">
+		<span class="ok_cancel">Done</span><span class="ok_cancel">Cancel</span>
+	    </div>
+   
+	</div>
+    </div>
+
+  <!--
+    Scene Screen
+-->    
+    <div id="scn_screen" class="hide">	
+  	<div class="page">
+	    <div id="scn_control" onclick="scn_control_click(event)">
+		<span>All OFF</span><span>Execute</span><span>All ON</span>
+	    </div>
+	    <div class="scn_head">Scene Name:</div>
+	    <div><input id="scn_name"></div>
+    	    <div class="scn_head">Display in Group:</div>
+	    <select id="sel_grp"></select>
+	    <div class="scn_head">Create new Display Group:</div>
+	    <div><input id="new_grp"></div>	    
+	    <div class="scn_head botln">Devices</div>
+	    <div id="scn_list" onclick="scn_dev_del(event)"></div>
+	    <div class="addbut" onclick="dev_choose()">Add Device</div>
+	    <div id="scn_done" class="center">
+		<span class="ok_cancel" onclick="scn_done_click()">Done</span><span class="ok_cancel" onclick="main_screen()">Cancel</span>
+	    </div>
+	</div>
+    </div>  
+
+  <!--
+    Wizer Screen
+-->    
+    <div id="wiz_screen" class="hide">	
+  	<div class="page">
+	    <div class="dev_top"><span id="rssi">--%</span><span id="ago"></span></div>
+	    	    
+	    <div class="current" onclick="wiz_refresh()">
+		<span id="wver" class="refresh"></span>
+		<span id="curt">--&deg;</span>
+		<span id="cur_sp" class=""></span>
+	    </div>
+	    <div class="item c"><span id="hn" class="but1" onclick="wiz_heat_now(this)">Heat Now</span></div>
+
+	    <div class="item"><span class="iw">Auto Heating:</span><span id="wiz_en" class=""></span></div>
+	    	    
+<!--
+	    <div class="item"><span class="iw">Idle</span><span id="idle">30&deg;</span><span class="more"></span></div>
+-->
+	    <div class="item">Schedule<span class="more"></span></div>
+	    <div class="item">Heating Costs<span class="more"></span></div>
+	    <div class="item">Settings<span class="more"></span></div>
+	    	    
+	</div>
+    </div>  
+
+  <div id="modal" class="hide"><div id="mpage"></div></div>
+ 
+  
+</body>
+
+</html>

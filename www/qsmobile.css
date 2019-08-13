@@ -1,0 +1,823 @@
+/*V1*/
+html {
+    height: 100%;
+}
+
+body {
+    font-family: sans-serif;
+    -webkit-tap-highlight-color:rgba(0,0,0,0);
+    min-width: 240px;
+    margin: 0;
+}
+
+span {
+    display: inline-block;
+    vertical-align: top;
+    -webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-o-user-select: none;
+	user-select: none; 
+    height: 100%;
+    overflow: hidden;
+}
+button {
+    overflow: hidden;
+}
+
+div {
+    overflow: hidden;
+}
+
+p {
+
+}
+input {
+    font-size: 2em;
+    width: 99%;
+    color: #777777;
+    margin-bottom: 10px;
+}
+
+select {
+    font-size: 20px;
+    height: 30px;
+    line-height: 30px;
+    margin-bottom: 20px;
+    width: 99%;
+}
+
+#top_bar {
+    background: none repeat scroll 0 0 #A4D639;
+    border: 1px solid #AAAAAA;
+    height: 32px;
+    left: 0;
+    margin: 0 auto;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    font-size: 20px;
+    line-height: 32px;
+    z-index: 2;
+    text-align: center;
+}
+
+#icon {
+    float: left;
+    width: 32px;
+    height: 100%;
+    margin-left: 2px;
+}
+.qs {
+    background: url("images/qs.png") no-repeat scroll center center transparent;
+}
+.usb_err {
+    background: url("images/usb_err.png") no-repeat scroll center center transparent;
+}
+
+#title {
+    color: white;
+}
+
+#top_but {
+    float: right;
+    width: 32px;
+    height: 100%;
+    margin-right: 2px;
+}
+
+#main {
+    margin: 40px auto;
+    max-width: 800px;
+    min-height: 100%;
+    width: 100%;
+    z-index: 1;
+}
+
+.page {
+    color: #777;
+    text-align: center;
+    margin: 0 auto;
+    width: 98%;
+
+}
+
+#control{
+    font-size: 22px;
+    color: #555555;
+    text-align: left;
+}
+
+#control div {
+    border-bottom: 1px solid #CCCCCC;
+    cursor: pointer;
+} 
+
+
+.pic {
+    width: 60px;
+    height: 60px; 
+}
+
+.more {
+    float: right;
+    background: url("images/more.png") no-repeat scroll right center transparent;
+    width: 30px;
+    height: 60px;
+}
+
+.more:hover {
+    background-color: #EEEEEE;
+}
+
+.tpic {
+    background: url("images/tmp.png") no-repeat scroll left center transparent;
+    width: 60px;
+    height: 60px; 
+}
+
+.rhpic {
+    background: url("images/rht.jpg") no-repeat scroll left center transparent;
+    width: 60px;
+    height: 60px; 
+}
+
+
+.tval {
+    float: right;
+    padding: 0;
+    color: #803333;
+    font-size: 30px;
+    font-weight: bold;
+    margin-left: 10px;
+    line-height: 60px; 
+}
+
+.name {
+    color: #555555;
+    max-width: 200px;
+    line-height: 60px;
+}
+
+.spin_c {
+    background: url("images/spin.gif") no-repeat scroll center center white;
+    height: 200px;
+}
+
+
+.i {
+    border-bottom: 1px solid #AAAAAA;
+    color: #555555;
+    font-size: 22px;
+    height: 70px;
+    line-height: 70px;
+    text-align: left;
+}
+
+.dim {
+
+}
+
+.rel {
+
+
+}
+
+.tmp {
+
+}
+
+.scn {
+
+}
+
+.spin {
+    background: url("images/spin.gif") no-repeat scroll 15px center white;
+}
+
+.dim_on {
+    background: url("images/dim_on.png") no-repeat scroll left center #FFFFE0;
+}
+.dim_off {
+    background: url("images/dim_off.png") no-repeat scroll left center transparent;
+}
+.dim_err {
+    background: url("images/dim_err.png") no-repeat scroll left center transparent;
+}
+
+.rel_on {
+    background: url("images/dim_on.png") no-repeat scroll left center #FFFFE0;
+}
+.rel_off {
+    background: url("images/dim_off.png") no-repeat scroll left center transparent;
+}
+.rel_err {
+    background: url("images/dim_err.png") no-repeat scroll left center transparent;
+}
+
+._na {
+    background: url("images/na.png") no-repeat scroll left center transparent;
+}
+
+.star {
+    background: url("images/star.png") no-repeat scroll left center transparent;
+}
+
+.info {
+    color: #555555;
+    height: 30px;
+    border-bottom: 1px solid #DDDDDD;
+    height: 50px;
+    line-height: 50px;
+    margin: 2px auto;
+    overflow: hidden;
+    width: 80%;
+}
+
+.info div{
+    display: inline-block;
+    float: left;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.info span {
+    float: right;
+
+}
+
+.item {
+    border-bottom: 1px solid #AAAAAA;
+    font-size: 18px;
+    height: 64px;
+    line-height: 64px;
+    overflow: hidden;
+    padding-left: 10px;
+    text-align: left;
+}
+
+.item:hover {
+    background: #E3FFAF;
+}
+
+.addbut {
+    border: 2px dashed #CCCCCC;
+    color: #333333;
+    cursor: pointer;
+    display: block;
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+    margin: 20px auto;
+}
+.addbut:hover {
+    background: #E3FFAF;
+}
+
+.listnav {
+    background: #eeeeee;
+    border: 1px dashed #CCCCCC;
+    height: 50px;
+    width: 100%;
+    line-height: 50px;
+    text-align: center;
+}
+
+
+.devices span {
+    background: url("images/setup.png") no-repeat scroll 1px center transparent;
+}
+
+.device {
+    color: #AAAAAA;
+    margin: 0 auto;
+    text-align: center;
+    width: 90%;
+}
+
+.backold {
+	background:  #777777; /* for non-css3 browsers */
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=' #797979', endColorstr='#444444'); /* for IE */
+	background: -webkit-gradient(linear, left top, left bottom, from( #797979), to(#444444)); /* for webkit browsers */
+    background: -moz-linear-gradient(center top , #797979, #444444) repeat scroll 0 0 transparent;/* for firefox 3.6+ */
+    
+    border-radius: 5px 5px 5px 5px;
+    color: white;
+    height: 50px;
+    line-height: 50px;
+    margin: 30px auto 0;
+    text-align: center;
+    width: 80%;
+}
+
+.back {
+	background:  #FFFFFF; /* for non-css3 browsers */
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=' #FFFFFF', endColorstr='#EEEEEE'); /* for IE */
+	background: -webkit-gradient(linear, left top, left bottom, from( #FFFFFF), to(#EEEEEE)); /* for webkit browsers */
+    background: -moz-linear-gradient(center top , #FFFFFF, #EEEEEE) repeat scroll 0 0 transparent;/* for firefox 3.6+ */
+    border: 1px solid #CCCCCC;
+    border-radius: 5px 5px 5px 5px;
+    color: #777777;
+    cursor: pointer;
+    height: 50px;
+    line-height: 50px;
+    margin: 10px auto;
+    text-align: center;
+}
+
+.back:active {
+    color: #A4D639;
+}
+
+.more_on_off {
+    text-align:center;
+    background: none repeat scroll 0 0 transparent;
+    border: medium none; 
+}
+
+.more_on_off span {
+    background: none repeat scroll 0 0 #DDDDDD;
+    border: 1px solid #AAAAAA;
+    height: 50px;
+    line-height: 50px;
+    margin: 0 5px;
+    width: 25%;
+}
+
+
+.more_del {
+    background: url("images/del.png") no-repeat scroll 10px center #DDDDDD;
+    border: 1px solid #CCCCCC;
+    line-height: 50px;
+    overflow: hidden;
+    padding-left: 50px;
+    text-align: left;
+    width: 100%;
+    margin-top: 5px;
+}
+
+.bot_cl span {
+    height: 100%;
+    width: 20%;
+}
+
+.dev_form {
+    color: #555555;
+    margin: 10px auto;
+    width: 90%;
+}
+
+#dev_list {
+    overflow: hidden;
+}
+#dev_list div{
+    height: 50px;    
+    border-bottom: 1px solid #CCCCCC;
+    overflow: hidden;
+}
+#dev_list span {
+
+    height: 50px;    
+    line-height: 50px;
+    overflow: hidden;
+    padding-left: 5px;
+
+}
+
+.col1 {
+    width: 6em;
+}
+.col2 {
+    width: 50%;
+}
+.del {
+    float: right;
+    background: url("images/del.png") no-repeat scroll 0 center;
+    width: 30px;
+    margin-right: 10px;
+}
+
+.listr {
+    float: right;
+    margin: 5px 20px;
+}
+
+.but1 {
+	background:  #FFFFFF; /* for non-css3 browsers */
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=' #FFFFFF', endColorstr='#EEEEEE'); /* for IE */
+	background: -webkit-gradient(linear, left top, left bottom, from( #FFFFFF), to(#EEEEEE)); /* for webkit browsers */
+    background: -moz-linear-gradient(center top , #FFFFFF, #EEEEEE) repeat scroll 0 0 transparent;/* for firefox 3.6+ */
+    border: 1px solid #CCCCCC;
+    border-radius: 5px 5px 5px 5px;
+    color: #777777;
+    cursor: pointer;
+    display: block;
+    height: 50px;
+    line-height: 50px;
+    margin: 10px auto;
+    text-align: center;
+}
+
+.del_but {
+	background:  #FFFFFF; /* for non-css3 browsers */
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=' #FFFFFF', endColorstr='#EEEEEE'); /* for IE */
+	background: -webkit-gradient(linear, left top, left bottom, from( #FFFFFF), to(#EEEEEE)); /* for webkit browsers */
+    background: -moz-linear-gradient(center top , #FFFFFF, #EEEEEE) repeat scroll 0 0 transparent;/* for firefox 3.6+ */
+    border: 1px solid #CCCCCC;
+    border-radius: 5px 5px 5px 5px;
+    cursor: pointer;
+    color: #FF8080;
+    height: 50px;
+    line-height: 50px;
+    margin: 10px auto;
+    text-align: center;
+}
+
+
+.ok_cancel {
+	background:  #FFFFFF; /* for non-css3 browsers */
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=' #FFFFFF', endColorstr='#EEEEEE'); /* for IE */
+	background: -webkit-gradient(linear, left top, left bottom, from( #FFFFFF), to(#EEEEEE)); /* for webkit browsers */
+    background: -moz-linear-gradient(center top , #FFFFFF, #EEEEEE) repeat scroll 0 0 transparent;/* for firefox 3.6+ */
+    border: 1px solid #CCCCCC;
+    border-radius: 5px 5px 5px 5px;
+    color: #777777;
+    cursor: pointer; 
+    height: 40px;
+    line-height: 40px;
+    margin: 5px;
+    min-width: 30%;
+    text-align: center;
+}
+
+.onoff {
+	background:  #797979; /* for non-css3 browsers */
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=' #797979', endColorstr='#444444'); /* for IE */
+	background: -webkit-gradient(linear, left top, left bottom, from( #797979), to(#444444)); /* for webkit browsers */
+    background: -moz-linear-gradient(center top , #797979, #444444) repeat scroll 0 0 transparent;/* for firefox 3.6+ */
+    border: 1px solid #AAAAAA;
+    border-radius: 5px 5px 5px 5px;
+    color: #333333;
+    cursor: pointer;
+    height: 50px;
+    overflow: hidden;
+    vertical-align: middle;
+    margin: 20px auto 50px;
+}
+
+.onoff span {
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    width: 49%;
+}
+
+.bordr {
+    border-right: 1px solid #AAAAAA;
+}
+
+.row {
+    margin: 0 auto;
+    text-align: center;
+}
+
+.center {
+    text-align: center;
+}
+
+.left {
+    text-align: left;
+}
+
+.row span{
+    color: #777777;
+    height: 100px;
+    margin: 5%;
+    vertical-align: bottom;
+    width: 100px;
+}
+
+.row span:hover {
+    text-shadow: 0 0 3px #A4D639;
+}
+
+.thide {
+    visibility: hidden;
+}
+
+.thome {
+    visibility: visible;
+    background-image: url("images/home.png");
+}
+.tback {
+    visibility: visible;
+    background-image: url("images/back1.png");
+}
+
+
+#sched {
+    margin: 0 auto;
+    text-align: left;
+}
+
+#sched div {
+    border-bottom: 1px solid #CCCCCC;
+    height: 60px;
+    line-height: 60px;
+}
+
+.sch_time {
+    font-size: 40px;
+    font-weight: bold;
+    line-height: 44px;
+    margin: 0 10px 0 0;
+    text-align: center;
+}
+
+.sch_days {
+    color: #AAAAAA;
+    display: block;
+    font-size: 10px;
+    height: 12px;
+    line-height: 10px;
+}
+.sch_days span {
+    padding-right: 3px; 
+}
+
+.bold {
+    font-weight: bold;
+    color: #555555;
+}
+
+.time {
+    font-size: 60px;
+}
+
+.time input {
+    border: 1px solid #AAAAAA;
+    font-size: 50px;
+    text-align: center;
+    width: 2em;
+}
+.days {
+    color: #AAAAAA;
+    margin-top: 30px; 
+}
+
+.days span {
+    border: 1px solid #AAAAAA;
+    height: 30px;
+    line-height: 30px;
+    margin: 1px;
+    width: 13%;
+}
+
+.sel {
+    background: none repeat scroll 0 0 #555555;
+    color: #A4D639;
+}
+
+#output_sel {
+    border: 1px solid #AAAAAA;
+    height: 50px;
+    line-height: 50px;
+    margin: 15px 0;
+    width: 35%;
+}
+
+.output {
+    background: none repeat scroll 0 0 #444444;
+    border-radius: 5px 5px 5px 5px;
+    color: #AAAAAA;
+    font-size: 20px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    vertical-align: middle;
+    width: 80px;    
+    cursor: pointer; 
+}
+
+#mlist {
+    height: 100%;
+    margin: auto;
+    padding: 0;
+    text-align: center;
+    color: #A4D639;
+    font-size: 22px;
+}
+#mlist div {
+    background: none repeat scroll 0 0 #555555;
+    border: 1px solid #DDDDDD;
+    border-radius: 5px 5px 5px 5px;
+    height: 50px;
+    line-height: 50px;
+    margin: 2px auto;
+    text-align: center;
+    width: 50%;
+}
+
+#dim_but {
+	background:  #797979; /* for non-css3 browsers */
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=' #797979', endColorstr='#444444'); /* for IE */
+	background: -webkit-gradient(linear, left top, left bottom, from( #797979), to(#444444)); /* for webkit browsers */
+    background: -moz-linear-gradient(center top , #797979, #444444) repeat scroll 0 0 transparent;/* for firefox 3.6+ */
+    border-radius: 5px 5px 5px 5px;  
+    font-size: 30px;
+    height: 50px;
+    line-height: 50px;
+    margin: 10px auto;
+    text-align: center;
+    width: 100%;
+}
+
+.red {
+    color: #FF7070;
+}
+
+.grn {
+    color: #A4D43C;
+}
+
+.on {
+    color: #A4D639;
+    text-shadow: 0 0 3px #00FF00;
+}
+
+.err {
+    color: red;
+    text-shadow: 0 0 3px red;
+}
+
+.maxwide {
+    max-width: 800px;
+    width: 100%;
+}
+
+.dev_top {
+    color: #AAAAAA;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+#rssi {
+    background: url("images/rssi.png") no-repeat scroll 0 center transparent;
+    float: left;
+    height: 30px;
+    line-height: 40px;
+    padding-left: 35px;
+    text-align: left;
+    opacity: 0.5;
+}
+
+#ago {
+    float: right;
+    height: 30px;
+    line-height: 40px;
+}
+
+.botln {
+    border-bottom: 1px solid #CCCCCC;
+}
+
+#scn_list div {
+    border-bottom: 1px solid #DDDDDD;
+    height: 50px;
+    line-height: 50px;
+    text-align: left;
+}
+
+#modal {
+    background: none repeat scroll 0 0 white;
+    float: left;
+    min-height: 100%;
+    left: 0;
+    margin: 0 auto;
+    position: absolute;
+    text-align: center;
+    top: 35px;
+    width: 100%;
+    z-index: 10;
+}
+#mpage {
+    height: 100%;
+    margin: 0 auto;
+    max-width: 800px;
+    text-align: center;
+}
+
+.dlist div {
+    border-bottom: 1px solid #EEEEEE;
+    height: 40px;
+    line-height: 40px;
+    padding-left: 10%;
+    text-align: left;
+    cursor: pointer;
+}
+
+.dlist div:hover {
+    background: #E0FFE0;
+}
+
+.scn_nam {
+    margin-left: 10px;
+    width: 40%;
+}
+.scn_head {
+    text-align: left;
+    color: #555555;
+}
+
+#scenes div {
+    border-bottom: 1px solid #EEEEEE;
+    height: 70px;
+    line-height: 70px;
+    text-align: left;
+    font-size: 22px;
+}
+
+#cancel {
+    color: red;
+}
+
+#scn_control {
+    height: 50px;
+    margin-bottom: 10px;
+}
+
+#scn_control span {
+	background:  #797979; /* for non-css3 browsers */
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=' #797979', endColorstr='#444444'); /* for IE */
+	background: -webkit-gradient(linear, left top, left bottom, from( #797979), to(#444444)); /* for webkit browsers */
+    background: -moz-linear-gradient(center top , #797979, #444444) repeat scroll 0 0 transparent;/* for firefox 3.6+ */
+    border-radius: 3px 3px 3px 3px;
+    color: #FFFFFF;
+    cursor: pointer;
+    font-size: 16px;
+    height: 50px;
+    line-height: 50px;
+    margin: 0 3%;
+    text-align: center;
+    width: 25%;
+}
+#scn_exec {
+    height: 100%;
+}
+
+#scn_exec div {
+    border-bottom: 1px solid #CCCCCC;
+    height: 70px;
+    line-height: 70px;
+    text-align: left;
+    padding-left: 60px;
+}
+
+.grp {
+    color: white;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    width: 100%;
+}
+.plus { background: url("images/plus.png") no-repeat scroll 10px center #555555; }
+.min { background: url("images/minus.png") no-repeat scroll 10px center #555555; }
+
+.hide { display: none; }
+.show { display: block; }
+
+#sched_output {
+    line-height: 120px;
+}
+#sched_output span{
+    height: 50px;
+    line-height: 50px;
+    width: 60%;
+}
+
+#colpick {
+    margin-bottom: 10px;
+}
+
+#led_msg {
+    height: 30px;
+    line-height: 30px;
+}
+
+#art {
+    height: 60px;
+    width: 40px;
+    border: 3px solid;
+    border-radius: 4px;
+    margin: 0 auto;
+}
+
+.art_icon {
+    background: url("images/articon.png") no-repeat scroll left center transparent;
+    width: 60px;
+    height: 60px; 
+}
+
+#bright input {
+    height: 30px;
+}
