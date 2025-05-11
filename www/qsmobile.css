@@ -17,7 +17,7 @@ span {
 	-khtml-user-select: none;
 	-moz-user-select: none;
 	-o-user-select: none;
-	user-select: none; 
+	user-select: none;
     height: 100%;
     overflow: hidden;
 }
@@ -111,12 +111,12 @@ select {
 #control div {
     border-bottom: 1px solid #CCCCCC;
     cursor: pointer;
-} 
+}
 
 
 .pic {
     width: 60px;
-    height: 60px; 
+    height: 60px;
 }
 
 .more {
@@ -130,16 +130,21 @@ select {
     background-color: #EEEEEE;
 }
 
+.sgrpic {
+    background: url("images/stargr.png") no-repeat scroll left center transparent;
+    width: 60px;
+    height: 60px;
+}
 .tpic {
     background: url("images/tmp.png") no-repeat scroll left center transparent;
     width: 60px;
-    height: 60px; 
+    height: 60px;
 }
 
 .rhpic {
     background: url("images/rht.jpg") no-repeat scroll left center transparent;
     width: 60px;
-    height: 60px; 
+    height: 60px;
 }
 
 
@@ -150,7 +155,7 @@ select {
     font-size: 30px;
     font-weight: bold;
     margin-left: 10px;
-    line-height: 60px; 
+    line-height: 60px;
 }
 
 .name {
@@ -300,7 +305,7 @@ select {
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=' #797979', endColorstr='#444444'); /* for IE */
 	background: -webkit-gradient(linear, left top, left bottom, from( #797979), to(#444444)); /* for webkit browsers */
     background: -moz-linear-gradient(center top , #797979, #444444) repeat scroll 0 0 transparent;/* for firefox 3.6+ */
-    
+
     border-radius: 5px 5px 5px 5px;
     color: white;
     height: 50px;
@@ -332,7 +337,7 @@ select {
 .more_on_off {
     text-align:center;
     background: none repeat scroll 0 0 transparent;
-    border: medium none; 
+    border: medium none;
 }
 
 .more_on_off span {
@@ -371,13 +376,13 @@ select {
     overflow: hidden;
 }
 #dev_list div{
-    height: 50px;    
+    height: 50px;
     border-bottom: 1px solid #CCCCCC;
     overflow: hidden;
 }
 #dev_list span {
 
-    height: 50px;    
+    height: 50px;
     line-height: 50px;
     overflow: hidden;
     padding-left: 5px;
@@ -442,7 +447,7 @@ select {
     border: 1px solid #CCCCCC;
     border-radius: 5px 5px 5px 5px;
     color: #777777;
-    cursor: pointer; 
+    cursor: pointer;
     height: 40px;
     line-height: 40px;
     margin: 5px;
@@ -542,7 +547,7 @@ select {
     line-height: 10px;
 }
 .sch_days span {
-    padding-right: 3px; 
+    padding-right: 3px;
 }
 
 .bold {
@@ -562,7 +567,7 @@ select {
 }
 .days {
     color: #AAAAAA;
-    margin-top: 30px; 
+    margin-top: 30px;
 }
 
 .days span {
@@ -595,8 +600,8 @@ select {
     line-height: 40px;
     text-align: center;
     vertical-align: middle;
-    width: 80px;    
-    cursor: pointer; 
+    width: 80px;
+    cursor: pointer;
 }
 
 #mlist {
@@ -623,7 +628,7 @@ select {
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=' #797979', endColorstr='#444444'); /* for IE */
 	background: -webkit-gradient(linear, left top, left bottom, from( #797979), to(#444444)); /* for webkit browsers */
     background: -moz-linear-gradient(center top , #797979, #444444) repeat scroll 0 0 transparent;/* for firefox 3.6+ */
-    border-radius: 5px 5px 5px 5px;  
+    border-radius: 5px 5px 5px 5px;
     font-size: 30px;
     height: 50px;
     line-height: 50px;
@@ -815,7 +820,7 @@ select {
 .art_icon {
     background: url("images/articon.png") no-repeat scroll left center transparent;
     width: 60px;
-    height: 60px; 
+    height: 60px;
 }
 
 #bright input {
