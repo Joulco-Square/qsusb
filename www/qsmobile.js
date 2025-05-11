@@ -46,12 +46,12 @@ function init()
 	setup_load();
 	dev_list_get();
 	layout_build();
-	
+
 	main_screen();
 	sched_get();
 
 	setInterval(function() {
-		
+
 		devs_refresh();
 		if($refresh)main_screen();
 		if($i)
@@ -70,10 +70,10 @@ function setup_load()
 		$scenes = ob.scenes;
 		$devset = ob.devset;
 	}
-	
+
 	if($scenes==null)$scenes = Array();
 	if($devset==null)$devset = Array();
-	
+
 }
 //----------------------
 function setup_save()
@@ -90,16 +90,16 @@ function add()
 {
 	//SwitchArt_tx('@0a6f40','0000ff','aa');
 	//return;
-	
+
 	var s = '<div class="item add_dev" onclick="dev_add()">New Device</div>';
 	s += '<div class="item add_scn" onclick="scn_add()">New Scene</div>';
 	s += '<div class="back" onclick="main_screen()">back</div>';
-		
+
 	$('main').innerHTML = s;
 	$('title').innerHTML = 'Add ?';
 	$refresh=false;
 	window.scrollTo(0,0);
-		
+
 }
 //------------------------
 function top_click(event)
@@ -118,7 +118,7 @@ function top_click(event)
 function dev_add()
 {
 	$('main').innerHTML = $('dev_add').innerHTML;
-	
+
 	var s ='';
 	for( var i in $layout)
 	{
@@ -127,12 +127,12 @@ function dev_add()
 	$('sel_grp').innerHTML = s;
 	$('title').innerHTML = 'New Device';
 	window.scrollTo(0,0);
-		
+
 }
 //-------------------------
 function dev_add_click(ok)
 {
-	
+
 	if (ok == 0) {
 		if($i===null)main_screen();
 		else dev_more();
@@ -156,14 +156,14 @@ function dev_add_click(ok)
 	var n = $('dev_name').value;
 	if (n == '')
 	{
-		alert("Please enter a Device Name");		
+		alert("Please enter a Device Name");
 		return;
 	}
-	
+
 	var grp = $('new_grp').value;
 	if(grp=='')grp = $('sel_grp').value;
 
-	
+
 	var t = $('dev_type').value;
 	if (t.length != 3) {
 		alert('ERROR');
@@ -182,7 +182,7 @@ function dev_add_click(ok)
 		devset_add(obj);
 		setup_save();
 		layout_build();
-		
+
 	}else {
 		alert("Error Saving Device!");
 	}
@@ -203,19 +203,19 @@ function main_screen()
 		{
 			var n = $layout[x].name;
 			if($open[n]==1)var c = "min";
-			else var c = "plus";	
+			else var c = "plus";
 			s += '<div id="G' + x + '" class="grp ' + c + '" onclick="grp_toggle(this)">' + n + '</div>';
 			if($open[n]==1)s += '<div class="">'
 			else s += '<div class="hide">'
-			var items = $layout[x].items;	
+			var items = $layout[x].items;
 			for(var y in items)
 			{
-				s += item_html(items[y]);				
+				s += item_html(items[y]);
 			}
 			s += '</div>';
 		}
-	}	
-	s += '<span class="addbut" onclick="add()">Add</span>';	
+	}
+	s += '<span class="addbut" onclick="add()">Add</span>';
 	s += '</dev>';
 
 	$('main').innerHTML = s;
@@ -224,7 +224,7 @@ function main_screen()
 
 	$refresh = true;
 	$i=null;
-	$dim = null;	
+	$dim = null;
 }
 
 function item_html(id)//id=@xxxxxx | scene name
@@ -245,36 +245,48 @@ function item_html(id)//id=@xxxxxx | scene name
 			case 'tmp':
 				return list_tmp(i);
 			case 'art':
-				return list_art(i);				
+				return list_art(i);
 			case 'hum':
-				return list_hum(i);	
+				return list_hum(i);
+			case 'ims':
+				return list_ims(i);
+			case 'imt':
+				return list_imt(i);
+			case 't4s':
+				return list_t4s(i);
+			case 'ct3':
+				return list_ct3(i);
+			case 'rep':
+				return list_rep(i);
+			case '000':
+				return list_000(i);
 		}
 		return;
 	}
 	var i = find_scn(id);
-	if(i==null)return '';	
-	return list_scn(i); 
+	if(i==null)return '';
+	return list_scn(i);
 }
 //------------
 function grp_toggle(obj)
 {
 	var div = obj.nextSibling;
-	var i = parseInt(obj.id.substr(1),10); 
-	
+	var i = parseInt(obj.id.substr(1),10);
+
 	if(div.className == 'hide')
 	{
 		div.className = 'show';
 		obj.className = 'grp min';
-		var n = obj.innerHTML; 
+		var n = obj.innerHTML;
 		$open[n] = 1;
 	}
 	else {
 		div.className = 'hide';
 		obj.className = 'grp plus';
-		var n = obj.innerHTML; 
+		var n = obj.innerHTML;
 		$open[n] = 0;
 	}
-	
+
 }
 //------------------------------
 
@@ -343,7 +355,6 @@ function list_tmp(i)
 
 function list_art(i)
 {
-	
 	var s = '';
 	s += '<div id="' + $devs[i].id + '">';
 	s += '<span class="art_icon"></span>';
@@ -354,11 +365,10 @@ function list_art(i)
 	return s;
 }
 
-
 function list_hum(i)
 {
 	var t = $devs[i].val;//[HW][SW][RHh][RHl][Th][Tl]
-	//if (t.substr(0, 2) != '34')return; 
+	//if (t.substr(0, 2) != '34')return;
 
 	var rh="";
 	var tmp ="";
@@ -367,9 +377,9 @@ function list_hum(i)
 		var rh = hexdec(t.substr(4, 4));
 		rh = (-6 + (125*(rh/Math.pow(2,16))));
 		rh = Math.round(rh) + '%';
-		
-		var tmp = hexdec(t.substr(8, 4));	
-		tmp = (-46.85 + (175.72*(tmp/Math.pow(2,16))));		
+
+		var tmp = hexdec(t.substr(8, 4));
+		tmp = (-46.85 + (175.72*(tmp/Math.pow(2,16))));
 		tmp = Math.round(tmp) + '&deg';
 	}
 
@@ -384,6 +394,81 @@ function list_hum(i)
 	return s;
 }
 
+function list_ims(i)
+{
+	var s = '';
+	s += '<div id="' + $devs[i].id + '">';
+	s += '<span class="sgrpic"></span>';
+	s += '<span class="name">' + $devs[i].name + '</span>';
+	s += '<span class="more"></span>';
+	s += '<span class="tval">N/A</span>';
+	s += '</div>';
+	return s;
+}
+function list_imt(i)
+{
+	var s = '';
+	s += '<div id="' + $devs[i].id + '">';
+	s += '<span class="sgrpic"></span>';
+	s += '<span class="name">' + $devs[i].name + '</span>';
+	s += '<span class="more"></span>';
+	s += '<span class="tval">N/A</span>';
+	s += '</div>';
+	return s;
+}
+
+function list_t4s(i)
+{
+	var s = '';
+	s += '<div id="' + $devs[i].id + '">';
+	s += '<span class="sgrpic"></span>';
+	s += '<span class="name">' + $devs[i].name + '</span>';
+	s += '<span class="more"></span>';
+	s += '<span class="tval">N/A</span>';
+	s += '</div>';
+	return s;
+}
+
+function list_ct3(i)
+{
+	var t = $devs[i].val;
+	var s = '';
+	s += '<div id="' + $devs[i].id + '">';
+	s += '<span class="sgrpic"></span>';
+	s += '<span class="name">' + $devs[i].name + '</span>';
+	s += '<span class="more"></span>';
+	s += '<span class="tval">' + t + '</span>';
+	s += '</div>';
+	return s;
+}
+
+function list_rep(i)
+{
+	var t = $devs[i].rssi;
+	console.log($devs[i])
+	var s = '';
+	s += '<div id="' + $devs[i].id + '">';
+	s += '<span class="sgrpic"></span>';
+	s += '<span class="name">' + $devs[i].name + '</span>';
+	s += '<span class="more"></span>';
+	s += '<span class="tval">' + t + '</span>';
+	s += '</div>';
+	return s;
+}
+
+function list_000(i)
+{
+	var t = $devs[i].val;
+	var s = '';
+	s += '<div id="' + $devs[i].id + '">';
+	s += '<span class="tpic"></span>';
+	s += '<span class="sgrpic">' + $devs[i].name + '</span>';
+	s += '<span class="more"></span>';
+	s += '<span class="tval">' + t + '</span>';
+	s += '</div>';
+	return s;
+}
+
 
 function list_scn(i)
 {
@@ -391,7 +476,7 @@ function list_scn(i)
 	s += '<span class="pic"></span>';
 	s += '<span class="name">' + $scenes[i].name + '</span>';
 	s += '<span class="more"></span>';
-	s += '</div>';	
+	s += '</div>';
 	return s;
 }
 
@@ -410,7 +495,7 @@ function main_click(event)
 			id = t.id;
 		}
 	}
-	
+
 	var c = id.charAt(0);
 	if(c=='@')//dev
 	{
@@ -419,14 +504,14 @@ function main_click(event)
 			alert("ID Error!");
 			return;
 		}
-		
+
 		if(target.className == 'more'){
 			$refresh = false;
 			$i = i;
 			dev_more(i);
 		}
 		else {
-			
+
 			if($devs[i].type == 'tmp' || $devs[i].type == 'art' || $devs[i].type == 'hum')
 			{
 				$refresh = false;
@@ -436,9 +521,9 @@ function main_click(event)
 			}
 			dev_click(i);
 		}
-		return;	
+		return;
 	}
-	
+
 	if(c=='S')//scene
 	{
 		var i = parseInt(id.substr(1),10);
@@ -496,29 +581,60 @@ function dev_more()
 	var dev = $devs[$i];
 	var s = '<div class="device">';
 
-	s += '<div class="dev_top">';	
+	s += '<div class="dev_top">';
 	s += '<span id="rssi"></span>';
 	s += '<span id="ago"></span>';
 	s += '</div>';
+
+	if(dev.type == '000')
+	{
+		dev_000_screen();
+		return;
+	}
+	if(dev.type == 'rep')
+	{
+		dev_rep_screen();
+		return;
+	}
+	if(dev.type == 't4s')
+	{
+		dev_t4s_screen();
+		return;
+	}
+	if(dev.type == 'ct3')
+	{
+		dev_ct3_screen();
+		return;
+	}
+	if(dev.type == 'imt')
+	{
+		dev_imt_screen();
+		return;
+	}
+	if(dev.type == 'ims')
+	{
+		dev_ims_screen();
+		return;
+	}
 
 	if(dev.type == 'tmp')
 	{
 		dev_tmp_screen();
 		return;
 	}
-	
+
 	if(dev.type == 'hum')
 	{
 		dev_tmp_screen();
 		return;
 	}
-	
+
 	if(dev.type == 'art')
 	{
 		art_screen();
 		return;
-	}	
-	
+	}
+
 	var o = legacy_status(dev.val);
 
 	if (dev.type == 'rel')
@@ -540,8 +656,8 @@ function dev_more()
 	s += '<span id="off_timer" class="but1" onclick="off_timer_modal()">Delay Off</span>';
 	s += '<span class="but1" onclick="dev_sched_screen()">Schedules</span>';
 	s += '<span class="but1" onclick="dev_info_screen()">Info</span>';
-	s += '<div class="but1" onclick="dev_edit()">Edit Device</div>';	
-	s += '<div class="del_but" onclick="dev_del()">Delete Device</div>';	
+	s += '<div class="but1" onclick="dev_edit()">Edit Device</div>';
+	s += '<div class="del_but" onclick="dev_del()">Delete Device</div>';
 	s += '<div class="back" onclick="main_screen()">Back</div>';
 
 	$('main').innerHTML = s;
@@ -551,28 +667,28 @@ function dev_more()
 	$back_screen = main_screen;
 	$('top_but').className = 'tback';
 
-	if($devs[$i].rssi)$('rssi').innerHTML = $devs[$i].rssi;	
-	if($devs[$i].time)$('ago').innerHTML = time_ago($devs[$i].time);	
+	if($devs[$i].rssi)$('rssi').innerHTML = $devs[$i].rssi;
+	if($devs[$i].time)$('ago').innerHTML = time_ago($devs[$i].time);
 
 }
 //--------------------------
 function dev_edit()
 {
 	$('main').innerHTML = $('dev_add').innerHTML;
-	
+
 	$('dtype').className = "hide";
-	
+
 	$('dev_id').value = $devs[$i].id;
 	$('dev_id').readOnly = true;
 	$('dev_name').value = $devs[$i].name;
-	
+
 	$('sel_grp').innerHTML = option_groups();
 	$('title').innerHTML = 'Edit Device';
 	window.scrollTo(0,0);
-	
+
 	var g = layout_find_grp($devs[$i].id);
-	$('sel_grp').selectedIndex = g;	
-	
+	$('sel_grp').selectedIndex = g;
+
 	select_val($('dev_type'),$devs[$i].type);
 }
 //----------------------------
@@ -582,10 +698,10 @@ function select_val(obj,val)
 	for(var x=0;x<op.length;x++)
 	{
 		if(op[x].value==val)
-		{			
+		{
 			obj.selectedIndex = x;
 			return x;
-		}		
+		}
 	}
 	return null;
 }
@@ -603,35 +719,35 @@ function dev_del()
 		devset_clean();
 	}
 	else alert('ERROR DELETING DEVICE');
-	
+
 	devs_refresh();
 	layout_build();
 	main_screen();
 }
 //----------------------------
 function layout_find_grp(item)
-{	
+{
 	for(var x in $layout)
 	{
 		for(var y in $layout[x].items)
 		{
 			if($layout[x].items[y]==item)return x;
 		}
-	}		
-	return null;	
+	}
+	return null;
 }
 function layout_build()
 {
 	$layout = Array();
 	$layout[0]={"name":"","items":[]}
 	var save = false;
-	
+
 	for(var i in $scenes)
 	{
-		
+
 		var g = $scenes[i].grp;
 		if(g==null)g='';
-		
+
 		if(g=='')
 		{
 			$layout[0].items.push($scenes[i].name);
@@ -658,7 +774,7 @@ function layout_build()
 			save=true;
 		}
 		var obj = $devset[di];
-				
+
 		if(obj.grp=='')
 		{
 			$layout[0].items.push(obj.id);
@@ -673,13 +789,13 @@ function layout_build()
 		}
 	}
 	if(save)setup_save();
-	
+
 }
 
 function devset_clean()
 {
 	for(var i in $devset)
-	{		
+	{
 		if(find_id($devset[i].id)==null)$devset.splice(i,1);
 	}
 }
@@ -690,7 +806,7 @@ function devset_add(obj)
 	if(i===null)return $devset.push(obj)-1;//add
 	//edit
 	$devset[i] = obj;
-	return i;	
+	return i;
 }
 
 function dim_select_tx()//callback after dim select
@@ -706,25 +822,25 @@ function dim_select_tx()//callback after dim select
 	var s = $host + '/' + $devs[$i].id + '=' + v ;
 
 	modal_hide();
-	window.scrollTo(0,0);	
-	$('dim_but').innerHTML = '';	
+	window.scrollTo(0,0);
+	$('dim_but').innerHTML = '';
 	$('dim_but').className = 'spin_c';
-	
+
 	qs_tx(s,function(j){
-		
+
 			if(j.cmd=='ERROR')
 			{
 				$dim='';
 				$devs[$i].val='';
-				$('dim_but').innerHTML = 'Error';	
+				$('dim_but').innerHTML = 'Error';
 				$('dim_but').className = 'err';
-				
-			}else 
-			{				
+
+			}else
+			{
 				$devs[$i].val=$dim;
 				$devs[$i].rssi = j.rssi;
 				$devs[$i].time = Now();
-				$('dim_but').innerHTML = $dim;	
+				$('dim_but').innerHTML = $dim;
 				if($dim=='0%')$('dim_but').className = '';
 				else $('dim_but').className = 'on';
 				$('ago').innerHTML = time_ago($devs[$i].time);
@@ -754,39 +870,197 @@ function off_timer_modal()
 function off_timer_click(event)
 {
 	if (!event)event = window.event;
-	var target = event.target ? event.target : event.srcElement;	
+	var target = event.target ? event.target : event.srcElement;
 	if(target.innerHTML=='Cancel'){
 		modal_hide();
 		return;
 	}
-	
+
 	var t = target.innerHTML;
 	if(instr(t,'min'))var sec = parseInt(t,10) * 60;
 	else var sec = parseInt(t,10) * 3600;//hr
 	if(sec==NaN)return;
 
-	$('mpage').innerHTML = '';	
-	$('mpage').className = 'spin_c';		
+	$('mpage').innerHTML = '';
+	$('mpage').className = 'spin_c';
 
 	qs_tx($host + '/' + $devs[$i].id + '+' + sec, function(j){
-		
+
 			modal_hide();
 			if(j.cmd=='ERROR')
 			{
 				$('off_timer').style.color = 'red';
-				
-			}else 
-			{				
+
+			}else
+			{
 				$devs[$i].rssi = j.rssi;
 				$devs[$i].time = Now();
 				if($devs[$i].type=='rel')$devs[$i].val = 'ON';
 				else $devs[$i].val = '100%';
 				dev_more();
 				$('off_timer').style.color = 'green';
-				
+
 			}
 		});
 }
+//----------------------
+function dev_000_screen()
+{
+	var dev = $devs[$i];
+
+	var t="";
+	if(dev.time)
+	{
+		var i = parseInt(dev.time,10);
+		t = time_ago(i);
+	}
+
+	var s = '<div class="page">';
+	s += '<div class="info"><div>ID:</div><span>' + dev.id + '</span></div>';
+	s += '<div class="info"><div>Signal:</div><span>' + dev.rssi + '</span></div>';
+	s += '<div class="info"><div>Last Update:</div><span>' + t + '</span></div>';
+	s += '<div class="but1" onclick="dev_edit()">Edit Device</div>';
+	s += '<div class="del_but" onclick="dev_del()">Delete Device</div>';
+	s += '<div class="back" onclick="main_screen()">Back</div>';
+	s += '</div>';
+
+	$('main').innerHTML = s;
+	$('title').innerHTML = dev.name;
+
+	window.scrollTo(0,0);
+	$back_screen = main_screen;
+	$('top_but').className = 'tback';
+
+}
+
+//-----------------------------------
+//----------------------
+function dev_rep_screen()
+{
+	var dev = $devs[$i];
+
+	var t="";
+	if(dev.time)
+	{
+		var i = parseInt(dev.time,10);
+		t = time_ago(i);
+	}
+
+	var s = '<div class="page">';
+	s += '<div class="info"><div>Info:</div><span>Repeater</span></div>';
+	s += '<div class="info"><div>ID:</div><span>' + dev.id + '</span></div>';
+	s += '<div class="info"><div>Signal:</div><span>' + dev.rssi + '</span></div>';
+	s += '<div class="info"><div>Last Update:</div><span>' + t + '</span></div>';
+	s += '<span class="but1" onclick="dev_info_screen()">Info</span>';
+	s += '<div class="but1" onclick="ping()">Ping Device</div>';
+	s += '<div class="but1" onclick="dev_edit()">Edit Device</div>';
+	s += '<div class="del_but" onclick="dev_del()">Delete Device</div>';
+	s += '<div class="back" onclick="main_screen()">Back</div>';
+	s += '</div>';
+
+	$('main').innerHTML = s;
+	$('title').innerHTML = dev.name;
+
+	window.scrollTo(0,0);
+	$back_screen = main_screen;
+	$('top_but').className = 'tback';
+}
+
+//-----------------------------------
+//----------------------
+function dev_t4s_screen()
+{
+	var dev = $devs[$i];
+	var s = '<div class="page">';
+	s += '<div class="info"><div>Info:</div><span>4 Button Wireless Switch</span></div>';
+	s += '<div class="info"><div>ID:</div><span>' + dev.id + '</span></div>';
+	s += '<div class="but1" onclick="dev_edit()">Edit Device</div>';
+	s += '<div class="del_but" onclick="dev_del()">Delete Device</div>';
+	s += '<div class="back" onclick="main_screen()">Back</div>';
+	s += '</div>';
+
+	$('main').innerHTML = s;
+	$('title').innerHTML = dev.name;
+
+	window.scrollTo(0,0);
+	$back_screen = main_screen;
+	$('top_but').className = 'tback';
+}
+
+//-----------------------------------
+//----------------------
+function dev_ct3_screen()
+{
+	var dev = $devs[$i];
+
+	var t="";
+	if(dev.time)
+	{
+		var i = parseInt(dev.time,10);
+		t = time_ago(i);
+	}
+
+	var s = '<div class="page">';
+	s += '<div class="info"><div>ID:</div><span>' + dev.id + '</span></div>';
+	s += '<div class="info"><div>Signal:</div><span>' + dev.rssi + '</span></div>';
+	s += '<div class="info"><div>Last Update:</div><span>' + t + '</span></div>';
+	s += '<div class="but1" onclick="dev_edit()">Edit Device</div>';
+	s += '<div class="del_but" onclick="dev_del()">Delete Device</div>';
+	s += '<div class="back" onclick="main_screen()">Back</div>';
+	s += '</div>';
+
+	$('main').innerHTML = s;
+	$('title').innerHTML = dev.name;
+
+	window.scrollTo(0,0);
+	$back_screen = main_screen;
+	$('top_but').className = 'tback';
+
+}
+
+//-----------------------------------
+//----------------------
+function dev_ims_screen()
+{
+	var dev = $devs[$i];
+	var s = '<div class="page">';
+	s += '<div class="info"><div>Info:</div><span>5 iMod - ON/OFF</span></div>';
+	s += '<div class="info"><div>ID:</div><span>' + dev.id + '</span></div>';
+	s += '<div class="but1" onclick="dev_edit()">Edit Device</div>';
+	s += '<div class="del_but" onclick="dev_del()">Delete Device</div>';
+	s += '<div class="back" onclick="main_screen()">Back</div>';
+	s += '</div>';
+
+	$('main').innerHTML = s;
+	$('title').innerHTML = dev.name;
+
+	window.scrollTo(0,0);
+	$back_screen = main_screen;
+	$('top_but').className = 'tback';
+}
+
+//-----------------------------------
+//----------------------
+function dev_imt_screen()
+{
+	var dev = $devs[$i];
+	var s = '<div class="page">';
+	s += '<div class="info"><div>Info:</div><span>6 iMod - Pulse</span></div>';
+	s += '<div class="info"><div>ID:</div><span>' + dev.id + '</span></div>';
+	s += '<div class="but1" onclick="dev_edit()">Edit Device</div>';
+	s += '<div class="del_but" onclick="dev_del()">Delete Device</div>';
+	s += '<div class="back" onclick="main_screen()">Back</div>';
+	s += '</div>';
+
+	$('main').innerHTML = s;
+	$('title').innerHTML = dev.name;
+
+	window.scrollTo(0,0);
+	$back_screen = main_screen;
+	$('top_but').className = 'tback';
+}
+
+//-----------------------------------
 //----------------------
 function dev_tmp_screen()
 {
@@ -803,8 +1077,8 @@ function dev_tmp_screen()
 	s += '<div class="info"><div>ID:</div><span>' + dev.id + '</span></div>';
 	s += '<div class="info"><div>Signal:</div><span>' + dev.rssi + '</span></div>';
 	s += '<div class="info"><div>Last Update:</div><span>' + t + '</span></div>';
-	s += '<div class="but1" onclick="dev_edit()">Edit Device</div>';	
-	s += '<div class="del_but" onclick="dev_del()">Delete Device</div>';	
+	s += '<div class="but1" onclick="dev_edit()">Edit Device</div>';
+	s += '<div class="del_but" onclick="dev_del()">Delete Device</div>';
 	s += '<div class="back" onclick="main_screen()">Back</div>';
 	s += '</div>';
 
@@ -814,7 +1088,7 @@ function dev_tmp_screen()
 	window.scrollTo(0,0);
 	$back_screen = main_screen;
 	$('top_but').className = 'tback';
-	
+
 }
 
 //-----------------------------------
@@ -826,18 +1100,18 @@ function art_screen()
 	s += '<div class="info"><div>ID:</div><span>' + dev.id + '</span></div>';
 //	s += '<div class="info"><div>Signal:</div><span>' + dev.rssi + '</span></div>';
 //	s += '<div class="info"><div>Last Update:</div><span>' + t + '</span></div>';
-	
+
 
 	s += '<div id="led_msg">Set LED Color</div>';
 	s += '<canvas id="colpick" width="780" height="60" onclick="art_color_click(event)"></canvas>';
 	s += '<div id="btxt">Brightness - 100%</div>';
-	s += '<div id="bright"><input id="bval" type="range" min="0" max="100" value="100" onChange="art_slide_change(this)" onMouseup="art_slide_up(this)"/></div>';	
-	
-	s += '<div id="art"></div>';		
+	s += '<div id="bright"><input id="bval" type="range" min="0" max="100" value="100" onChange="art_slide_change(this)" onMouseup="art_slide_up(this)"/></div>';
+
+	s += '<div id="art"></div>';
 	s += '<div id="art_save" class="but1" onclick="art_save()">Save Color to Switch</div>';
-		
-	s += '<div class="but1" onclick="dev_edit()">Edit Device</div>';	
-	s += '<div class="del_but" onclick="dev_del()">Delete Device</div>';	
+
+	s += '<div class="but1" onclick="dev_edit()">Edit Device</div>';
+	s += '<div class="del_but" onclick="dev_del()">Delete Device</div>';
 	s += '<div class="back" onclick="main_screen()">Back</div>';
 	s += '</div>';
 
@@ -847,27 +1121,27 @@ function art_screen()
 	window.scrollTo(0,0);
 	$back_screen = main_screen;
 	$('top_but').className = 'tback';
-	
+
 	art_canvas_fill($('colpick'));
-	
+
 }
 
 function art_slide_change(t)
 {
-	$("btxt").innerHTML = "Brightness - " + t.value + "%";	
+	$("btxt").innerHTML = "Brightness - " + t.value + "%";
 }
 
 function art_slide_up(t)
 {
-	$('art_save').innerHTML = "Save Color to Switch";	
-	$('art_save').style.color = '#777';	
+	$('art_save').innerHTML = "Save Color to Switch";
+	$('art_save').style.color = '#777';
 	$bval = $('bval').value/100;
 	art_tx_color();
 }
 
 function art_canvas_fill(canvas)
 {
-		
+
     var context = canvas.getContext('2d');
     context.rect(0, 0, canvas.width, canvas.height);
 
@@ -875,13 +1149,13 @@ function art_canvas_fill(canvas)
     var grd = context.createLinearGradient(0, 0, canvas.width, canvas.height);
 
 // red, green, blue, purple, orange);
-    grd.addColorStop(0, 'red');   
+    grd.addColorStop(0, 'red');
 //	grd.addColorStop(.2, 'orange');
 	grd.addColorStop(.2, 'yellow');
 	grd.addColorStop(.4, 'green');
-	grd.addColorStop(.6, 'blue');		
-	grd.addColorStop(.8, 'purple');	
-	grd.addColorStop(1, 'white');	
+	grd.addColorStop(.6, 'blue');
+	grd.addColorStop(.8, 'purple');
+	grd.addColorStop(1, 'white');
     context.fillStyle = grd;
     context.fill();
 }
@@ -893,7 +1167,7 @@ function art_color_click(e)
 
 	if(!e)e = window.event;
 	var target = e.target ? e.target : e.srcElement;
-	
+
 	if (e.pageX || e.pageY) {
         posx = e.pageX;
         posy = e.pageY;
@@ -904,16 +1178,16 @@ function art_color_click(e)
         posy = e.clientY + document.body.scrollTop
                 + document.documentElement.scrollTop;
 	}
-		
+
 	var x = posx - target.offsetLeft;
-	var y = posy - target.offsetTop;	
+	var y = posy - target.offsetTop;
 	var p = target.getContext('2d').getImageData(x, y, 1, 1).data;
 	//console.log(p[0] + ',' + p[1] + ',' + p[2]);
 	$rgb = p;
 
-	$('art_save').innerHTML = "Save Color to Switch";	
-	$('art_save').style.color = '#777';	
-	
+	$('art_save').innerHTML = "Save Color to Switch";
+	$('art_save').style.color = '#777';
+
 	art_tx_color();
 
 }
@@ -921,11 +1195,11 @@ function art_color_click(e)
 function art_save()
 {
 	if($rgb[0]==undefined)return;
-	
+
 	var rgb = art_rgb_string();
-	
+
 	var c = $devs[$i].id + "00400305" + rgb;
-	
+
 	qs_tx($host + '/' + c, function(j)
 	{
 		if (j.cmd == 'ERROR')
@@ -936,9 +1210,9 @@ function art_save()
 					return;
 				}
 				if (j.data == 'NO REPLY')
-				{	
+				{
 					usb_ok();
-					$('art_save').innerHTML = "Error";	
+					$('art_save').innerHTML = "Error";
 					$('art_save').style.color = 'red';
 				}
 
@@ -946,14 +1220,14 @@ function art_save()
 			{
 				console.log("OK");
 				usb_ok();
-				$('art_save').innerHTML = "Saved";	
+				$('art_save').innerHTML = "Saved";
 				$('art_save').style.color = 'Green';
 			}
 	});
 
-	
-	
-	
+
+
+
 }
 
 function art_rgb_string()
@@ -961,23 +1235,23 @@ function art_rgb_string()
 	var r = parseInt($rgb[0]*$bval);
 	var g = parseInt($rgb[1]*$bval);
 	var b = parseInt($rgb[2]*$bval);
-		
+
 	var rgb = dechex(r) + dechex(g) + dechex(b);
-	console.log(rgb);	
-	return rgb;	
+	console.log(rgb);
+	return rgb;
 }
 
 //-------------------------------------
 function art_tx_color()
 {
-	
+
 	var rgb = art_rgb_string();
-	$('art').style.borderColor = 'rgba('+ $rgb[0] + ',' + $rgb[1] + ',' + $rgb[2] + ',' + $bval + ')';	
+	$('art').style.borderColor = 'rgba('+ $rgb[0] + ',' + $rgb[1] + ',' + $rgb[2] + ',' + $bval + ')';
 	$('led_msg').innerHTML = "Set LED Color";
 	$('led_msg').className = '';
-	
+
 	var c = $devs[$i].id + "00401100" + rgb + 'ff';
-	
+
 	qs_tx($host + '/' + c, function(j)
 	{
 		if (j.cmd == 'ERROR')
@@ -988,10 +1262,10 @@ function art_tx_color()
 					return;
 				}
 				if (j.data == 'NO REPLY')
-				{	
+				{
 					usb_ok();
 					console.log("ERR");
-					$('led_msg').innerHTML = "Set LED Color - Error";	
+					$('led_msg').innerHTML = "Set LED Color - Error";
 					$('led_msg').className = 'red';
 				}
 
@@ -1000,14 +1274,14 @@ function art_tx_color()
 				console.log("OK");
 				usb_ok();
 				$('led_msg').innerHTML = "Set LED Color - Done";
-				$('led_msg').className = 'grn';		
+				$('led_msg').className = 'grn';
 			}
 	});
 
-	
-	
-	
-	
+
+
+
+
 }
 
 //-------------------------------------------
@@ -1025,7 +1299,7 @@ function more_onoff_click(event)
 		if (j.cmd == 'ERROR')alert('NO REPLY!');
 		else {
 			var v = legacy_status(j.data);
-			
+
 			var b_on = target.parentNode.childNodes[0];
 			var b_off = target.parentNode.childNodes[1];
 			if (v.indexOf('ON') >= 0) {
@@ -1038,12 +1312,12 @@ function more_onoff_click(event)
 				b_off.className = 'on';
 				$devs[$i].val = 'OFF';
 			}
-			
+
 			$devs[$i].rssi = j.rssi;
 			$devs[$i].time = Now();
-			$('rssi').innerHTML = $devs[$i].rssi;	
-			$('ago').innerHTML = time_ago($devs[$i].time);	
-			
+			$('rssi').innerHTML = $devs[$i].rssi;
+			$('ago').innerHTML = time_ago($devs[$i].time);
+
 		}
 
 	});
@@ -1051,7 +1325,7 @@ function more_onoff_click(event)
 //----------------------------
 function dev_list_get()
 {
-	s = qs_tx_sync($host + '/&device');	
+	s = qs_tx_sync($host + '/&device');
 	var obj = JSON.parse(s);
 	if (obj)$devs = obj;
 
@@ -1059,14 +1333,14 @@ function dev_list_get()
 //----------------------------
 function dev_info_screen()
 {
-	var dev = $devs[$i];	
+	var dev = $devs[$i];
 
 	qs_tx($host + '/' + dev.id + '=?',function(j){
-		
+
 		if(j.cmd=='ERROR')
 		{
-			$('stat').innerHTML = "ERROR: " + j.data;			
-			$('stat').className = "err";			
+			$('stat').innerHTML = "ERROR: " + j.data;
+			$('stat').className = "err";
 			return;
 		}
 
@@ -1085,7 +1359,7 @@ function dev_info_screen()
 				else if(hw=='01')type = 'RX1-DIM';
 				fw = hexdec(j.data.substr(2,2));
 			}
-				
+
 		}
 
 		var s = '<div class="page">';
@@ -1096,15 +1370,15 @@ function dev_info_screen()
 		s += '<div class="but1" onclick="status_time_read()">Read Status Time</div>';
 		s += '<div class="but1" onclick="status_time_save()">Change Status Time</div>';
 		s += '<div class="back" onclick="dev_more()">Back</div>';
-		s += '</div>';	
-		$('main').innerHTML = s;			
-		
+		s += '</div>';
+		$('main').innerHTML = s;
+
 	});
 
 	var s = '<div class="page">';
 	s += '<div id="stat" class="spin_c" style="line-height: 240px; height: 200px">Fetching...</div>';
 	s += '<div class="back" onclick="dev_more()">Back</div>';
-	s += '</div>';		
+	s += '</div>';
 	$('main').innerHTML = s;
 	window.scrollTo(0,0);
 	$back_screen = dev_more;
@@ -1117,7 +1391,7 @@ function dev_sched_screen()
 	var id = $devs[$i].id;
 	var st;
 	$dim=null;
-	
+
 	var s = '<div class="page">';
 	s += '<div class="addbut" onclick="dev_sched_add()">Add Schedule</div>';
 	s += '<div id="sched">';
@@ -1125,12 +1399,12 @@ function dev_sched_screen()
 	for (var i = 0; i < l; i++)
 	{
 		if(inarray(id, $scheds[i].cmd)==false)continue;
-		
+
 		var st_cls='';
 		var t = $devs[$i].type;
-				
-		var o = $scheds[i].cmd[0].slice(8); 		
-				
+
+		var o = $scheds[i].cmd[0].slice(8);
+
 		if(t=='rel')
 		{
 			if(o=='0')st='OFF';
@@ -1140,7 +1414,7 @@ function dev_sched_screen()
 			st = o + '%';
 			if(o!='0')st_cls='on';
 		}
-		
+
 		var k = parseInt($scheds[i].key,10);
 		s += '<div onclick="sched_edit_del(event,' + k + ')">';
 		s += '<span class="sch_time">' + $scheds[i].time;
@@ -1148,7 +1422,7 @@ function dev_sched_screen()
 		s += '</span>';
 		s += '<span class="del"></span>';
 		s += '<span class="output ' + st_cls + '">' + st + '</span>';
-		
+
 		s += '</div>';
 	}
 	s += '</div>';
@@ -1186,10 +1460,10 @@ function dev_sched_add()
 {
 	$sch_key = null;
 	$('main').innerHTML = $('sched_screen').innerHTML;
-	
+
 	if($devs[$i].type == 'dim')
 	{
-		 $('sched_output').childNodes[1].innerHTML = '0%';		
+		 $('sched_output').childNodes[1].innerHTML = '0%';
 	}
 	$back_screen = dev_sched_screen;
 }
@@ -1198,9 +1472,9 @@ function sched_edit_del(event,k)//edit or del
 {
 	if (!event)event = window.event;
 	var target = event.target ? event.target : event.srcElement;
-		
+
 	if(target.className=='del')
-	{	
+	{
 		var r = confirm("Delete Schedule ?");
 		if(r==false)return;
 		console.log(k);
@@ -1211,32 +1485,32 @@ function sched_edit_del(event,k)//edit or del
 		dev_sched_screen();
 		return;
 	}
-	//edit sched	
-	
+	//edit sched
+
 	var i = sched_find_key(k);
 	if(i==null)return;
 	$sch_key = k;
 	$sch_cur = $scheds[i];
 
 	$('main').innerHTML = $('sched_screen').innerHTML;
-	
+
 	var t = $sch_cur.time;
 	$('hours').value = t.slice(0,2);
-	$('mins').value = t.slice(3);	
-	
+	$('mins').value = t.slice(3);
+
 	var dow = $('dow');
 	var d = $sch_cur.days;
-	
+
 	if(d.charAt(0)=='S')dow.childNodes[1].className='sel';
 	if(d.charAt(1)=='M')dow.childNodes[2].className='sel';
 	if(d.charAt(2)=='T')dow.childNodes[3].className='sel';
 	if(d.charAt(3)=='W')dow.childNodes[4].className='sel';
 	if(d.charAt(4)=='T')dow.childNodes[5].className='sel';
-	if(d.charAt(5)=='F')dow.childNodes[6].className='sel';	
+	if(d.charAt(5)=='F')dow.childNodes[6].className='sel';
 	if(d.charAt(6)=='S')dow.childNodes[7].className='sel';
-	
+
 	var cmd = $sch_cur.cmd[0].slice(8);
-	
+
 	if($devs[$i].type=='rel')
 	{
 		if(cmd=='0')
@@ -1244,17 +1518,17 @@ function sched_edit_del(event,k)//edit or del
 			$('sched_output').childNodes[1].innerHTML='OFF';
 		}else {
 			$('sched_output').childNodes[1].innerHTML='ON';
-			$('sched_output').childNodes[1].className='output on';				
+			$('sched_output').childNodes[1].className='output on';
 		}
 	}else if($devs[$i].type=='dim')
 	{
 		$('sched_output').childNodes[1].innerHTML= cmd + '%';
 		if(cmd!='0')$('sched_output').childNodes[1].className='output on';
-	}				
-	
+	}
+
 
 	$back_screen=null;
-	
+
 }
 
 function dim_select(callback)
@@ -1276,13 +1550,13 @@ function dim_select(callback)
 	s += '<div class="red">Cancel</div>';
 	s += '</div>';
 	modal_show(s);
-		
+
 }
 //----------
 function dim_select_click(event)
 {
 	if (!event)event = window.event;
-	var target = event.target ? event.target : event.srcElement;	
+	var target = event.target ? event.target : event.srcElement;
 	if(target.innerHTML=='Cancel')$dim = null;
 	else $dim = target.innerHTML;
 	if($callback)$callback();
@@ -1305,8 +1579,8 @@ function time_press(tbox)
 function sched_day_click(event)
 {
 	if (!event)event = window.event;
-	var target = event.target ? event.target : event.srcElement;	
-	
+	var target = event.target ? event.target : event.srcElement;
+
 	if(target.className=='')target.className = 'sel';
 	else target.className='';
 }
@@ -1314,24 +1588,24 @@ function sched_day_click(event)
 function sched_done_click(event)
 {
 	if (!event)event = window.event;
-	var target = event.target ? event.target : event.srcElement;	
+	var target = event.target ? event.target : event.srcElement;
 
 	if(target.innerHTML=='Cancel')
 	{
 		dev_sched_screen();
-		return;	
+		return;
 	}
-	
+
 	var h = parseInt($('hours').value,10);
 	var m = parseInt($('mins').value,10);
-	
+
 	if(isNaN(h) || isNaN(m))return;
-	
+
 	if(h<10)h = '0' + h;
 	if(m<10)m = '0' + m;
-	
+
 	var dow = $('dow');
-	
+
 	var days = 0;
 	var s = '';
 	if(dow.childNodes[1].className=='sel'){s+='S';days=1;}
@@ -1348,15 +1622,15 @@ function sched_done_click(event)
 	else s+='f';
 	if(dow.childNodes[7].className=='sel'){s+='S';days=1;}
 	else s+='s';
-	
+
 	if(days==0){
 		alert("Please Select the days");
 		return;
 	}
-		
+
 	var o='';
 	var output = $('sched_output').childNodes[1].innerHTML;
-	
+
 	if(output=="ON")o="100";
 	else if(output=="OFF")o="0";
 	else if(output=="0%")o="0";
@@ -1364,7 +1638,7 @@ function sched_done_click(event)
 
 	if($sch_key==null)
 	{
-		//var key =  $scheds.length+1;		
+		//var key =  $scheds.length+1;
 		for(var i=1;i<100;i++)
 		{
 			if(find_sched_key(i)==-1)
@@ -1375,13 +1649,13 @@ function sched_done_click(event)
 		}
 	}
 	else var key = $sch_key;
-	
+
 	var u = '/&cron/' + ("00" + key).slice(-3) + '/' + s + '/' + h + ':' + m + '/' + $devs[$i].id + '=' + o;
 	var r = qs_tx_sync(u);
-	
+
 	sched_get();//reload
 	dev_sched_screen();
-	
+
 }
 function sched_find_key(k)
 {
@@ -1408,7 +1682,7 @@ function devs_refresh()
 function sched_get()
 {
 	var j = qs_tx_sync('/&cron');
-	$scheds = JSON.parse(j);	
+	$scheds = JSON.parse(j);
 }
 function scn_exec(c)
 {
@@ -1416,7 +1690,7 @@ function scn_exec(c)
 	{
 		$cmds = c;
 		$i=0;
-		
+
 		var s = '<div id="scn_exec" onclick="modal_hide()">';
 		for(var i in c)
 		{
@@ -1424,21 +1698,21 @@ function scn_exec(c)
 			s += '<div id="' + $devs[idx].id + 's">' + $devs[idx].name + '</div>';
 		}
 		s += '</div>';
-		modal_show(s);				
+		modal_show(s);
 	}
-	
+
 	var curid = $cmds[$i].substr(0,7);
 	$( curid + 's').className = "spin";
 	qs_tx($host + '/' + $cmds[$i++], function(j)
-	{	
+	{
 		if(j.cmd=='ERROR')
 		{
 			$(curid + 's').className = "dim_err";
 			if(j.id=='')usb_err();
 		}else
-		{								
-			$(j.id + 's').className = state_class(j.data);	
-			usb_ok();			
+		{
+			$(j.id + 's').className = state_class(j.data);
+			usb_ok();
 		}
 
 		if($i<$cmds.length)setTimeout("scn_exec()",100);//do again
@@ -1448,14 +1722,14 @@ function scn_exec(c)
 				main_screen();
 				setTimeout("modal_hide()",2000);//do again
 			}
-	});		
+	});
 }
 //------------------------------
 function scn_more(i)
 {
 	$('main').innerHTML = $('scn_screen').innerHTML;
 	$('scn_name').value = $scenes[i].name;
-	
+
 	var s="";
 	var c = $scenes[i].cmds;
 	for(var x=0;x<c.length;x++)
@@ -1463,22 +1737,22 @@ function scn_more(i)
 		var id = c[x].substr(0,7);
 		var idx = find_id(id);
 		if(idx==null)continue;
-		
+
 		var val = c[x].substr(8);
 		s += scn_dev_html(idx,parseInt(val,10));
-		
+
 	}
 	$('scn_list').innerHTML = s;
 	s = '<div class="del_but" onclick="scn_del()">Delete Scene</div>';
 	s += '<div class="back" onclick="scn_done_click()">Back</div>';
-	$('scn_done').innerHTML = s; 
+	$('scn_done').innerHTML = s;
 	$('sel_grp').innerHTML = option_groups();
 	select_val($('sel_grp'),$scenes[$i].grp);
 
 	$('title').innerHTML = 'Scene';
 	$back_screen = main_screen;
 	$('top_but').className = 'tback';
-	
+
 	window.scrollTo(0,0);
 	$scn_save = 0;
 	$modal_cb = scn_add_device;
@@ -1506,10 +1780,10 @@ function scn_del()
 function scn_control_click(event)
 {
 	if (!event)event = window.event;
-	var target = event.target ? event.target : event.srcElement;	
-	
+	var target = event.target ? event.target : event.srcElement;
+
 	if($('scn_list').innerHTML=="")return;
-		
+
 	if(target.innerHTML=="All OFF")
 	{
 		var cmds = scn_list_to_arr($('scn_list'));
@@ -1524,15 +1798,15 @@ function scn_control_click(event)
 		scn_exec(cmds);
 		return;
 	}
-	
+
 	if(target.innerHTML=="All ON")
 	{
 		var cmds = scn_list_to_arr($('scn_list'));
 		for(var x in cmds)cmds[x] = cmds[x].substr(0,8) + '100';
-		scn_exec(cmds);		
+		scn_exec(cmds);
 		return;
-	}	
-	
+	}
+
 }
 
 function scn_add_device(i)
@@ -1546,14 +1820,14 @@ function scn_done_click()
 
 	var n = $('scn_name').value;
 	if(n=='')return;
-	
+
 	var sl = $('scn_list');
 	if(sl.innerHTML=="")return;
-	
+
 	var scn = {};
 	scn.name = n;
 	scn.cmds = scn_list_to_arr(sl);
-	
+
 	var grp = $('new_grp').value;
 	if(grp=='')grp = $('sel_grp').value;
 	scn.grp = grp;
@@ -1573,9 +1847,9 @@ function scn_done_click()
 			layout_build();
 		}
 	}
-	
+
 	main_screen();
-	
+
 }
 //------------
 function scn_match(s1,s2)
@@ -1589,26 +1863,26 @@ function scn_list_to_arr(obj)
 {
 	var l = obj.childNodes.length;
 	if(l==0)return;
-	
+
 	var cmds = Array();
 	for(var i=0;i<l;i++)
 	{
 		var id = obj.childNodes[i].id;
 		var o = obj.childNodes[i].childNodes[1].innerHTML;
-		
+
 		var v=0;
 		if(o=='ON')v=100;
 		else if(o=='OFF')v=0;
 		else v = parseInt(o,10);
 		cmds[i] = id + "=" + v;
 	}
-	return cmds;	
-	
+	return cmds;
+
 }
 function scn_dev_del(event)
 {
 	if (!event)event = window.event;
-	var target = event.target ? event.target : event.srcElement;	
+	var target = event.target ? event.target : event.srcElement;
 
 	if(target.className != 'del')return;
 	var p = target.parentNode;
@@ -1617,20 +1891,20 @@ function scn_dev_del(event)
 function scn_dev_html(i,val)
 {
 	if(val==null)val = 0;
-	
+
 	var s = '<div id="' + $devs[i].id + '">';
 	s += '<span class="scn_nam">' + $devs[i].name + "</span>";
 	if($devs[i].type=='dim'){
-		if(val)s += '<span class="output on" onclick="output_click(this)">' + val + '%</span>';	
+		if(val)s += '<span class="output on" onclick="output_click(this)">' + val + '%</span>';
 		else  s += '<span class="output" onclick="output_click(this)">' + val + '%</span>';
 	}
 	else{
-		 if(val)s += '<span class="output on" onclick="output_click(this)">ON</span>';	
-		 else s += '<span class="output" onclick="output_click(this)">OFF</span>';	
+		 if(val)s += '<span class="output on" onclick="output_click(this)">ON</span>';
+		 else s += '<span class="output" onclick="output_click(this)">OFF</span>';
 	}
 	s += '<span class="del"></span>';
 	s += '</div>';
-	return s;	
+	return s;
 }
 function scn_remove_device(id)
 {
@@ -1638,7 +1912,7 @@ function scn_remove_device(id)
 	{
 		for(var x in $scenes[i].cmds)
 		{
-			if(instr($scenes[i].cmds[x],id))$scenes[i].cmds.splice(x,1); 
+			if(instr($scenes[i].cmds[x],id))$scenes[i].cmds.splice(x,1);
 		}
 	}
 }
@@ -1672,21 +1946,21 @@ function dev_choose()
 {
 	var s = '<div class="dlist" onclick="dev_choose_click(event)">';
 
-	s += '<div id="cancel">Cancel</div>';	
+	s += '<div id="cancel">Cancel</div>';
 	for(var i=0;i<$devs.length;i++)
 	{
 		if($devs[i].type != 'dim' && $devs[i].type != 'rel')continue;
 		s += '<div id="' + i + '">' + $devs[i].name + '</div>';
 	}
 	s += '</div>';
-	$('mpage').innerHTML = s;			
+	$('mpage').innerHTML = s;
 	$('modal').className = '';
 }
 
 function dev_choose_click(event)
 {
 	if (!event)event = window.event;
-	var target = event.target ? event.target : event.srcElement;	
+	var target = event.target ? event.target : event.srcElement;
 	$('mpage').innerHTML = '';
 	$('modal').className = 'hide';
 	if(target.id=='cancel')return;
@@ -1702,7 +1976,7 @@ function find_sched_key(k)
 		if(parseInt($scheds[i].key,10) == k)return i;
 	}
 	return -1;
-	
+
 }
 
 function find_id(id)
@@ -1736,11 +2010,11 @@ function find_grp(name)
 	{
 		if ($layout[i].name == name)return i;
 	}
-	return null;	
+	return null;
 }
 
 function state_class(st)
-{	
+{
 	if (st == '')return '_na';
 	if (st == '0%')return 'dim_off';
 	if (st == 'OFF')return 'rel_off';
@@ -1754,16 +2028,16 @@ function isON(i)
 	return 1;
 }
 //----------------------------
-function inarray(needle, haystack) 
+function inarray(needle, haystack)
 {
     var key = '';
         for (key in haystack) {
-			
+
 			if (haystack[key].indexOf(needle) > -1)return true;
         }
     return false;
 }
-function numbers(evt) 
+function numbers(evt)
 {
 	var theEvent = evt || window.event;
 	var key = theEvent.keyCode || theEvent.which;
@@ -1773,7 +2047,7 @@ function numbers(evt)
 	}
 }
 function time_ago(unix_timestamp) {
-	
+
 	if(unix_timestamp=="")return "";
   var difference_in_seconds = (Math.round((new Date()).getTime() / 1000)) - unix_timestamp,
       current_date = new Date(unix_timestamp * 1000), minutes, hours,
@@ -1781,9 +2055,9 @@ function time_ago(unix_timestamp) {
         'January','February','March','April','May',
         'June','July','August','September','October',
         'November','December');
-  
+
   if(difference_in_seconds<0)difference_in_seconds=0;
-  if(difference_in_seconds < 60) {                                  
+  if(difference_in_seconds < 60) {
     return difference_in_seconds + " second" + _plural(difference_in_seconds) + " ago";
   } else if (difference_in_seconds < 60*60) {
     minutes = Math.floor(difference_in_seconds/60);
@@ -1792,14 +2066,14 @@ function time_ago(unix_timestamp) {
     hours = Math.floor(difference_in_seconds/60/60);
     return hours + " hour" + _plural(hours) + " ago";
   } else if (difference_in_seconds > 60*60*24){
-    if(current_date.getYear() !== new Date().getYear()) 
+    if(current_date.getYear() !== new Date().getYear())
       return current_date.getDay() + " " + months[current_date.getMonth()].substr(0,3) + " " + _fourdigits(current_date.getYear());
-    
+
     return current_date.getDay() + " " + months[current_date.getMonth()].substr(0,3);
   }
-  
+
   return difference_in_seconds;
-  
+
   function _fourdigits(number)	{
         return (number < 1000) ? number + 1900 : number;}
 
@@ -1813,19 +2087,19 @@ function time_ago(unix_timestamp) {
 
 function Now()
 {
- return parseInt(new Date().getTime()/1000,10);	
+ return parseInt(new Date().getTime()/1000,10);
 }
 
 
 function modal_show(s)
 {
-	$('mpage').innerHTML = s;			
-	$('modal').className = '';	
+	$('mpage').innerHTML = s;
+	$('modal').className = '';
 	window.scrollTo(0,0);
 }
 function modal_hide()
 {
-	$('mpage').className = '';	
+	$('mpage').className = '';
 	$('mpage').innerHTML = '';
 	$('modal').className = 'hide';
 }
@@ -1842,7 +2116,7 @@ function option_groups()
 	for( var i in $layout)
 	{
 		s += '<option>' + $layout[i].name + '</option>';
-	}	
+	}
 	return s;
 }
 
@@ -1850,7 +2124,7 @@ function usb_err()
 {
 	$('icon').className = 'usb_err';
 	$('title').innerHTML = 'USB Modem Removed';
-	$('title').style.color = 'red';		
+	$('title').style.color = 'red';
 	$usb_ok = false;
 
 }
@@ -1865,7 +2139,7 @@ function usb_ok()
 function srv_err()
 {
 	$('title').innerHTML = 'Server Not Available!';
-	$('title').style.color = 'red';		
+	$('title').style.color = 'red';
 	$srv_ok = false;
 }
 function srv_ok()
@@ -1886,7 +2160,7 @@ function ajax_post(url,data)
 
 function status_time_read()
 {
-	
+
 	var id = $devs[$i].id;
 	var s = $host + '/'+ id + '/get/' + dechex(4);
 	qs_tx(s,function (j){
@@ -1896,13 +2170,13 @@ function status_time_read()
 			alert("Error Reading Setting");
 			return;
 		}
-		
+
 		var ee = hexdec(j.data.substr(2,2));
 		if(ee)var v = "Current Time is " + ee + " mins";
 		else var v = "Status Updates are Disabled";
 		alert(v);
-	}); 
-	
+	});
+
 }
 
 //---------------------------------------
@@ -1913,7 +2187,7 @@ function status_time_save()
 	var i = parseInt(n);
 	if(i<0)return;
 	if(i>255)return;
-	
+
 	var id = $devs[$i].id;
 	var s = $host + '/'+ id + '/set/' + dechex(4) + dechex(i);
 	qs_tx(s,function (j){
@@ -1924,23 +2198,23 @@ function status_time_save()
 			return;
 		}
 		alert("Setting Updated");
-	}); 
+	});
 }
 
 //--------------------------------------
 //for legacy support
 function legacy_status(st)
 {
-	
+
 	if(st=='7e')return 'OFF';
 	if(st=='7f')return 'ON';
-		
+
 	if(st.length==6)//old
 	{
 		var l = hexdec(st.substr(4));
-		
+
 		if(st.substr(0,2)=='01')//old dim
-		{	
+		{
 			var d = 125-l;
 			d = (d/125)*100;
 			return d + '%';
@@ -1949,12 +2223,31 @@ function legacy_status(st)
 		{
 			if(l==127)return 'ON';
 			else return 'OFF';
-		}		
+		}
 	}
-	
+
 	return st;
-	
+
 }
 
 //-------------------------------------------
 
+function ping()
+{
+	var id = $devs[$i].id;
+	var s = $host + '/'+ id + '=?';
+	qs_tx(s,function (j){
+
+		if(j.cmd=='ERROR')
+		{
+			alert("Error");
+			return;
+		}
+		if(j.cmd=='STATUS.ACK')
+		{
+			alert("Success");
+			return;
+		}
+	});
+}
+//--------------------------------------
